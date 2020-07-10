@@ -142,6 +142,7 @@ public class LoginManager : SingleTon<LoginManager>
                 Debug.Log("Login : " + Social.localUser.userName);
                 // to do ...
                 // 로그인 성공 처리
+                AchievementManager.Instance.ReportAchievement(AchievementManager.AchievementType.Login);
                 NonCertLogin();
             }
             else

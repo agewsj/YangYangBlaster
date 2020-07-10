@@ -76,7 +76,7 @@ public class LoginModel : BaseModel<LoginModel>
         request.Test = true;
         request.Live = true;
 
-        request.Version = string.Format("{0}_{1}", Application.version, GameDataManager.Instance.GetBundleVersion());
+        request.Version = string.Format("{0}_{1}", Application.version, GameDataManager.Instance.GetBundleVer());
 
         SendTos(request);
     }

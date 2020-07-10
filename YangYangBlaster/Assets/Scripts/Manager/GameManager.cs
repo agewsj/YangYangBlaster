@@ -74,11 +74,13 @@ public class GameManager : SingleTon<GameManager>
         Net.NetManager.Instance.Connect();
         yield return LoadingManager.Instance.SetLoading();
 
-        GameManagerInit();
+        yield return GameManagerInit();
+
+        GameDataManager.Instance.GetDeviceVer();
     }
 
     // Start is called before the first frame update
-    public void GameManagerInit()
+    IEnumerator GameManagerInit()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         //Screen.SetResolution(9, 16, true);
@@ -94,6 +96,8 @@ public class GameManager : SingleTon<GameManager>
         }
        
         ChangeGameState(GameState.Lobby);
+
+        yield return null;
     }
 
     // Update is called once per frame

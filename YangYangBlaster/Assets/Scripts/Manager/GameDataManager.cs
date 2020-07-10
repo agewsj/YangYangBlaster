@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Msg;
+#if UNITY_IOS
+using System.Runtime.InteropServices;
+#endif
 
 [System.Serializable]
 public struct UserData
@@ -782,7 +785,7 @@ public class GameDataManager : SingleTon<GameDataManager>
         }
     }
 
-    public string GetBundleVersion()
+    public string GetBundleVer()
     {
     #if !UNITY_EDITOR
     #if UNITY_ANDROID
@@ -792,6 +795,13 @@ public class GameDataManager : SingleTon<GameDataManager>
     #endif
     #endif
         return "1";
+    }
+
+    public void GetDeviceVer()
+    {
+#if UNITY_IOS
+        Debug.Log("Device Version : " + GetDeviceVersion());
+#endif
     }
 
 
@@ -812,8 +822,10 @@ public class GameDataManager : SingleTon<GameDataManager>
         }
     }
 #elif UNITY_IOS
-    [DllImport ( "__Internal")]
-    extern string GetBundleVersion ();
+    [DllImport("__Internal")]
+    static extern string GetBundleVersion();
+    [DllImport("__Internal")]
+    static extern string GetDeviceVersion();
 #endif
 
     #endregion
