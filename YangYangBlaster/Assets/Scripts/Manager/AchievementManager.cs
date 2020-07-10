@@ -6,6 +6,11 @@ using GooglePlayGames;
 
 public class AchievementManager : SingleTon<AchievementManager>
 {
+    public enum AchievementType
+    {
+        Login
+    }
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -68,52 +73,57 @@ public class AchievementManager : SingleTon<AchievementManager>
 #endif
     }
 
-    public void UnlockAchievement(int score)
+    public void ReportLeaderBoard(int score)
     {
-        if (score >= 100)
+        Social.ReportScore(score, GPGSIds.leaderboard, (bool bSuccess) =>
         {
-#if UNITY_ANDROID
-            //PlayGamesPlatform.Instance.ReportProgress(GPGSIds.achievement_100, 100f, null);
-#elif UNITY_IOS
-            Social.ReportProgress("Score_100", 100f, null);
-#endif
-        }
+            if (bSuccess)
+            {
+                Debug.Log("ReportLeaderBoard Success");                
+            }
+            else
+            {
+                Debug.Log("ReportLeaderBoard Fall");                
+            }
+        });        
     }
 
-    public void ReportAchievement(int score)
+    string GetAchievementName(AchievementType _type)
     {
-#if UNITY_ANDROID
-        /*
-        PlayGamesPlatform.Instance.ReportScore(score, GPGSIds.leaderboard_score, (bool success) =>
+        string result = null;
+
+        if (_type == AchievementType.Login)
+        {
+            result = GPGSIds.achievement;
+        }
+
+        return result;
+    }
+
+    public void ReportAchievement(AchievementType _type)
+    {
+        string achieveName = GetAchievementName(_type);
+
+        if (achieveName == null)
+        {
+            Debug.LogError("AchieveMent Null");
+            return;
+        }
+            
+        Social.ReportProgress(achieveName, 100f, (bool success) =>
         {
             if (success)
             {
                 // Report 성공
                 // 그에 따른 처리
+                Debug.Log("AddAchievement Success");
             }
             else
             {
                 // Report 실패
                 // 그에 따른 처리
+                Debug.Log("AddAchievement Fail");
             }
         });
-        */
-#elif UNITY_IOS
-
-        Social.ReportScore(score, "Leaderboard_ID", (bool success) =>
-        {
-            if (success)
-            {
-                // Report 성공
-                // 그에 따른 처리
-            }
-            else
-            {
-                // Report 실패
-                // 그에 따른 처리
-            }
-        });
-
-#endif
     }
 }

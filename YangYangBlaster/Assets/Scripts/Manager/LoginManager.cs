@@ -27,6 +27,12 @@ public class LoginManager : SingleTon<LoginManager>
         DontDestroyOnLoad(this);
 
         LoginInitalize();
+
+#if UNITY_ANDROID
+        GoogleLogin();
+#elif UNITY_IOS
+        IOSLogin();
+#endif
         //DoAutoLogin();
     }
 
@@ -101,6 +107,8 @@ public class LoginManager : SingleTon<LoginManager>
                 string idToken = ((PlayGamesLocalUser)Social.localUser).GetIdToken() == null ?
                 "" : ((PlayGamesLocalUser)Social.localUser).GetIdToken();
 
+                AchievementManager.Instance.ReportAchievement(AchievementManager.AchievementType.Login);
+
                 RpcLogin(loginType, loginKey, nickName, idToken);
             }
             else
@@ -121,28 +129,28 @@ public class LoginManager : SingleTon<LoginManager>
 
     void IOSLogin()
     {
-        //GameDataManager.Instance.userData.loginType = LoginRequest.Types.LOGIN_TYPE.Google;
+        GameDataManager.Instance.userData.loginType = LoginRequest.Types.LOGIN_TYPE.Google;
 
-        //var loginType = GameDataManager.Instance.userData.loginType;
-        //var loginKey = GameDataManager.Instance.userData.loginKey;
-        //var nickName = GameDataManager.Instance.userData.nickName;
+        var loginType = GameDataManager.Instance.userData.loginType;
+        var loginKey = GameDataManager.Instance.userData.loginKey;
+        var nickName = GameDataManager.Instance.userData.nickName;
 
-        //Social.localUser.Authenticate((bool success) =>
-        //{
-        //    if (success)
-        //    {
-        //        Debug.Log("Login : " + Social.localUser.userName);
-        //        // to do ...
-        //        // 로그인 성공 처리
-        //        NonCertLogin();
-        //    }
-        //    else
-        //    {
-        //        // to do ...
-        //        // 로그인 실패 처리
-        //        Debug.Log("Fail");
-        //    }
-        //});
+        Social.localUser.Authenticate((bool success) =>
+        {
+            if (success)
+            {
+                Debug.Log("Login : " + Social.localUser.userName);
+                // to do ...
+                // 로그인 성공 처리
+                NonCertLogin();
+            }
+            else
+            {
+                // to do ...
+                // 로그인 실패 처리
+                Debug.Log("Fail");
+            }
+        });
     }
 #endif
 

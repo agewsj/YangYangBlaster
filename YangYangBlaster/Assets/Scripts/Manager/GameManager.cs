@@ -89,7 +89,7 @@ public class GameManager : SingleTon<GameManager>
         if(Application.platform == RuntimePlatform.Android 
             || Application.platform == RuntimePlatform.IPhonePlayer
             || Application.platform == RuntimePlatform.WindowsEditor)
-        {
+        {            
             LoginManager.Instance.DoAutoLogin();
         }
        
@@ -490,6 +490,7 @@ public class GameManager : SingleTon<GameManager>
         if (0 != _score)
         {
             GameDataManager.Instance.SaveGameDataStage();
+            AchievementManager.Instance.ReportLeaderBoard(_score);
         }
     }
 
