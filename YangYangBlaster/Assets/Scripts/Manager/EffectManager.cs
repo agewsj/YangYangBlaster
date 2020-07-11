@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class EffectManager : SingleTon<EffectManager>
@@ -177,6 +178,7 @@ public class EffectManager : SingleTon<EffectManager>
             Debug.Log(ran);
 
             MilkItem item = GameDataManager.Instance.userData.milkItemList[ran];
+            Sprite sprite = GameDataManager.Instance.userResourceData.milkSpriteList[(int)item.type];
 
             activeMilkNum = activeMilkNum + 1;
 
@@ -187,7 +189,7 @@ public class EffectManager : SingleTon<EffectManager>
             if (milkEffectList[activeMilkNum].gameObject.activeInHierarchy == false)
             {
                 milkEffectList[activeMilkNum].gameObject.SetActive(true);
-                milkEffectList[activeMilkNum].SetMilkEffect(item, _pos);
+                milkEffectList[activeMilkNum].SetMilkEffect(item, sprite, _pos);
             }
         }        
     }

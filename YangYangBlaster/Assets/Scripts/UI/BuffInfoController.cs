@@ -12,11 +12,13 @@ public class BuffInfoController : MonoBehaviour
     {
         if (buffInfoItemList.Count == 0)
         {
-            for (int i = 0; i < GameDataManager.Instance.userData.milkItemList.Count; i++)
+            foreach (MilkItem item in GameDataManager.Instance.userData.milkItemList)
+            //for (int i = 0; i < GameDataManager.Instance.userData.milkItemList.Count; i++)
             {
                 BuffInfoItem bf = Instantiate(buffInfoGo, transform);
+                Sprite sprite = GameDataManager.Instance.userResourceData.milkSpriteList[(int)item.type];
 
-                bf.SetBuffItem(GameDataManager.Instance.userData.milkItemList[i]);
+                bf.SetBuffItem(item, sprite);
                 bf.gameObject.SetActive(false);
 
                 buffInfoItemList.Add(bf);

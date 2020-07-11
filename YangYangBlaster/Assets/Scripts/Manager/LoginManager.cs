@@ -214,7 +214,7 @@ public class LoginManager : SingleTon<LoginManager>
     public void RpcLogin(LoginRequest.Types.LOGIN_TYPE loginType,
         string loginKey, string nickName, string idToken)
     {
-        LoginModel.Instance.CTosLoginRequest(loginType, loginKey, nickName, idToken);
+        //LoginModel.Instance.CTosLoginRequest(loginType, loginKey, nickName, idToken);
 
         return;
 

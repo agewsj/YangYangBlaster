@@ -85,16 +85,18 @@ public class BulletManager : SingleTon<BulletManager>
 
     public void SetBulletSprite()
     {
-        bulletSprite = GameDataManager.Instance.userData.leaderData.bulletImage;
+        MercenaryData data = GameDataManager.Instance.userData.leaderData;
+        MercenaryResourceData resource = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data.type];
+
         if (GameDataManager.Instance.userData.mercenaryDataList.Count == 1)
         {
-            mercenary1BulletSprite = GameDataManager.Instance.userData.mercenaryDataList[0].bulletImage;
+            mercenary1BulletSprite = resource.bulletImage;
             mercenary2BulletSprite = null;
         }
         else if (GameDataManager.Instance.userData.mercenaryDataList.Count >= 2)
         {
-            mercenary1BulletSprite = GameDataManager.Instance.userData.mercenaryDataList[0].bulletImage;
-            mercenary2BulletSprite = GameDataManager.Instance.userData.mercenaryDataList[1].bulletImage;
+            mercenary1BulletSprite = resource.bulletImage;
+            mercenary2BulletSprite = resource.bulletImage;
         }
     }
 

@@ -14,11 +14,12 @@ public class MilkShopController : MonoBehaviour
     {
         if (milkShopItemList.Count == 0)
         {
-            for (int i = 0; i < GameDataManager.Instance.userData.milkItemList.Count; i++)
+            foreach (MilkItem item in GameDataManager.Instance.userData.milkItemList)
             {
                 MilkShopItem ms = Instantiate(milkItemPrefab, prefabParent);
-
-                ms.SetMilkShopItem(GameDataManager.Instance.userData.milkItemList[i]);
+                Sprite sprite = GameDataManager.Instance.userResourceData.milkSpriteList[(int)item.type];
+                
+                ms.SetMilkShopItem(item, sprite);
 
                 milkShopItemList.Add(ms);
             }
@@ -33,7 +34,10 @@ public class MilkShopController : MonoBehaviour
     {
         for (int i = 0; i < milkShopItemList.Count; i++)
         {
-            milkShopItemList[i].SetMilkShopItem(GameDataManager.Instance.userData.milkItemList[i]);
+            MilkItem item = GameDataManager.Instance.userData.milkItemList[i];
+            Sprite sprite = GameDataManager.Instance.userResourceData.milkSpriteList[(int)item.type];
+
+            milkShopItemList[i].SetMilkShopItem(item, sprite);
         }
     }
 

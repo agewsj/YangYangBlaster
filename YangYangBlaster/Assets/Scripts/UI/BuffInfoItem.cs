@@ -22,11 +22,11 @@ public class BuffInfoItem : MonoBehaviour
         effectUI.transform.localPosition = new Vector2(282, 0);
     }
 
-    public void SetBuffItem(MilkItem _item)
+    public void SetBuffItem(MilkItem _item, Sprite _milkSprite)
     {
         effectUI.transform.localPosition = new Vector2(282, 0);
 
-        milkIcon.sprite = _item.milkSprite;
+        milkIcon.sprite = _milkSprite;
         milkNameText.text = _item.type.ToString();
         milkTimeGauge.fillAmount = 1;
     }

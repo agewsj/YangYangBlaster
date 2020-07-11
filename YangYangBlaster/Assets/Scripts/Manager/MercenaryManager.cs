@@ -39,15 +39,23 @@ public class MercenaryManager : SingleTon<MercenaryManager>
     {
         if (GameDataManager.Instance.userData.mercenaryDataList.Count == 1)
         {
-            SetMercenary(0, true, GameDataManager.Instance.userData.mercenaryDataList[0].catImage, GameDataManager.Instance.userData.mercenaryDataList[0].attackSpeed, GameDataManager.Instance.userData.mercenaryDataList[0].runtimeAnimator);
+            MercenaryData data_0 = GameDataManager.Instance.userData.mercenaryDataList[0];
+            MercenaryResourceData resource_0 = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data_0.type];
+
+            SetMercenary(0, true, resource_0.catImage, data_0.attackSpeed, resource_0.runtimeAnimator);
             SetMercenary(1, false);
         }
         else if (GameDataManager.Instance.userData.mercenaryDataList.Count >= 2)
         {
-            SetMercenary(0, true, GameDataManager.Instance.userData.mercenaryDataList[0].catImage, GameDataManager.Instance.userData.mercenaryDataList[0].attackSpeed, GameDataManager.Instance.userData.mercenaryDataList[0].runtimeAnimator);
-            SetMercenary(1, true, GameDataManager.Instance.userData.mercenaryDataList[1].catImage, GameDataManager.Instance.userData.mercenaryDataList[1].attackSpeed, GameDataManager.Instance.userData.mercenaryDataList[1].runtimeAnimator);
+            MercenaryData data_0 = GameDataManager.Instance.userData.mercenaryDataList[0];
+            MercenaryResourceData resource_0 = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data_0.type];
+            MercenaryData data_1 = GameDataManager.Instance.userData.mercenaryDataList[1];
+            MercenaryResourceData resource_1 = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data_1.type];
+
+            SetMercenary(0, true, resource_0.catImage, data_0.attackSpeed, resource_0.runtimeAnimator);
+            SetMercenary(1, true, resource_1.catImage, data_1.attackSpeed, resource_1.runtimeAnimator);
         }
-        
+
         InitMercenaryPosition();
     }
 

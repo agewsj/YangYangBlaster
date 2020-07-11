@@ -27,26 +27,34 @@ public class DeckUIController : MonoBehaviour
         }
         else if (GameDataManager.Instance.userData.mercenaryDataList.Count == 1)
         {
+            MercenaryData data = GameDataManager.Instance.userData.mercenaryDataList[0];
+            MercenaryResourceData resource = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data.type];
+
             plusButton[0].gameObject.SetActive(false);
             deckMercenary[0].gameObject.SetActive(true);
-            deckMercenary[0].sprite = GameDataManager.Instance.userData.mercenaryDataList[0].catImage;
-            mercenaryAnimatorList[0].runtimeAnimatorController = GameDataManager.Instance.userData.mercenaryDataList[0].uiRuntimeAnimator;
+            deckMercenary[0].sprite = resource.catImage;
+            mercenaryAnimatorList[0].runtimeAnimatorController = resource.uiRuntimeAnimator;
 
             plusButton[1].gameObject.SetActive(true);
             deckMercenary[1].gameObject.SetActive(false);
         }
         else if (GameDataManager.Instance.userData.mercenaryDataList.Count >= 2)
         {
+            MercenaryData data_0 = GameDataManager.Instance.userData.mercenaryDataList[0];
+            MercenaryResourceData resource_0 = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data_0.type];
+            MercenaryData data_1 = GameDataManager.Instance.userData.mercenaryDataList[1];
+            MercenaryResourceData resource_1 = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data_1.type];
+
             plusButton[0].gameObject.SetActive(false);
             deckMercenary[0].gameObject.SetActive(true);
-            deckMercenary[0].sprite = GameDataManager.Instance.userData.mercenaryDataList[0].catImage;
-            mercenaryAnimatorList[0].runtimeAnimatorController = GameDataManager.Instance.userData.mercenaryDataList[0].uiRuntimeAnimator;
+            deckMercenary[0].sprite = resource_0.catImage;
+            mercenaryAnimatorList[0].runtimeAnimatorController = resource_0.uiRuntimeAnimator;
 
             plusButton[1].gameObject.SetActive(false);
             deckMercenary[1].gameObject.SetActive(true);
-            deckMercenary[1].sprite = GameDataManager.Instance.userData.mercenaryDataList[1].catImage;
-            mercenaryAnimatorList[1].runtimeAnimatorController = GameDataManager.Instance.userData.mercenaryDataList[1].uiRuntimeAnimator;
-        }     
+            deckMercenary[1].sprite = resource_1.catImage;
+            mercenaryAnimatorList[1].runtimeAnimatorController = resource_1.uiRuntimeAnimator;
+        }
     }
 
     public void SetStageGauge()

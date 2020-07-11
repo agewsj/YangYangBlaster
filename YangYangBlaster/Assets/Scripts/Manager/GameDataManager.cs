@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Msg;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 #if UNITY_IOS
 using System.Runtime.InteropServices;
 #endif
@@ -26,6 +28,13 @@ public struct UserData
     public LoginRequest.Types.LOGIN_TYPE loginType;
     public string loginKey;
     public string accessKey;
+}
+
+[System.Serializable]
+public struct UserResourceData
+{
+    public List<Sprite> milkSpriteList;
+    public List<MercenaryResourceData> mercenaryResourceDataList;
 }
 
 [Serializable]
@@ -63,11 +72,23 @@ public enum MilkType
     SHIELD
 }
 
+public enum MercenaryType
+{
+    MIA,
+    MEOWMEOW,
+    BABA,
+    STAR,
+    YAKYAK,
+    STUDY,
+    COWBOY,
+    FISHERMAN
+}
+
 [Serializable]
 public struct MilkItem //
 {
     public MilkType type;
-    public Sprite milkSprite;
+    //public Sprite milkSprite;
     public int milkLevel;
     public float milkDuration;
     public string milkInfo;
@@ -84,14 +105,24 @@ public enum MercenaryGetType
 [System.Serializable]
 public struct MercenaryData
 {
+    public MercenaryType type;
     public string name;
     public int damage;
     public float moveSpeed;
     public float attackSpeed;
-    public Sprite catImage;
+    //public Sprite catImage;
     public int level;
     public int price;
     public MercenaryGetType mercenaryGetType;
+    //public Sprite bulletImage;
+    //public RuntimeAnimatorController runtimeAnimator;
+    //public RuntimeAnimatorController uiRuntimeAnimator;
+}
+
+[System.Serializable]
+public struct MercenaryResourceData
+{
+    public Sprite catImage;
     public Sprite bulletImage;
     public RuntimeAnimatorController runtimeAnimator;
     public RuntimeAnimatorController uiRuntimeAnimator;
@@ -122,6 +153,7 @@ public struct StageData
     public int spawnCount;
 }
 
+[System.Serializable]
 public struct UserCurrency
 {
     public int userCoin;
@@ -132,7 +164,8 @@ public struct UserCurrency
     public int starPiece;
     public int scientistPiece;
     public int studentPiece;
-
+    public int cowboyPiece;
+    public int fishermanPiece;
 }
 
 public class GameDataManager : SingleTon<GameDataManager>
@@ -141,6 +174,8 @@ public class GameDataManager : SingleTon<GameDataManager>
     [SerializeField]
     public UserData userData;
     public int freeCoin = 0;
+
+    public UserResourceData userResourceData;
 
     [Header("Mercenary Data")]
     [SerializeField]
@@ -163,7 +198,46 @@ public class GameDataManager : SingleTon<GameDataManager>
 
     public void LoadGameData()
     {
-        LoadGameDataModel.Instance.CTosLoadGameDataRequest();
+        //userData.userCurrency.userCoin = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.userCurrency.userCoin", 0);
+        //userData.userCurrency.userRubby = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.userCurrency.userRubby", 0);
+        //userData.userCurrency.knightPiece = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.userCurrency.knightPiece", 0);
+        //userData.userCurrency.piratePiece = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.userCurrency.piratePiece", 0);
+        //userData.userCurrency.starPiece = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.userCurrency.starPiece", 0);
+        //userData.userCurrency.scientistPiece = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.userCurrency.scientistPiece", 0);
+        //userData.userCurrency.studentPiece = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.userCurrency.studentPiece", 0);
+        //userData.userCurrency.cowboyPiece = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.userCurrency.cowboyPiece", 0);
+        //userData.userCurrency.fishermanPiece = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.userCurrency.fishermanPiece", 0);
+
+        //MercenaryData mercenaryData = new MercenaryData();
+        //mercenaryData.name = PlayerPrefs.GetString(PREFIX_PREFS + "mercenaryDataName", "");
+        //mercenaryData.level = PlayerPrefs.GetInt(PREFIX_PREFS + "mercenaryDataLevel", 0);
+
+        //userData.getMercenaryDataDic.Add(mercenaryData.name, mercenaryData);
+
+        //userData.stageNum = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.stageNum", 0);
+        //userData.score = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.score", 0);
+
+        //userData.upgradePlayer.powerLevel = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.upgradePlayer.powerLevel ", 0);
+        //userData.upgradePlayer.attackSpeedLevel = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.upgradePlayer.attackSpeedLevel", 0);
+        //userData.upgradePlayer.criticalLevel = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.upgradePlayer.criticalLevel", 0);
+        //userData.upgradePlayer.buffDurationLevel = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.upgradePlayer.buffDurationLevel", 0);
+        //userData.upgradePlayer.freeCoinLevel = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.upgradePlayer.freeCoinLevel", 0);
+
+        BinaryFormatter bf = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/yyb.dat";
+        if (File.Exists(path))
+        {
+            try
+            {
+                FileStream file = File.Open(path, FileMode.Open);
+                userData = (UserData)bf.Deserialize(file);
+                file.Close();
+            }
+            catch (IOException e)
+            {
+                Debug.Log("Load game data error");
+            }
+        }
     }
 
     public string GetItemName(ITEM_TYPE itemType)
@@ -191,6 +265,36 @@ public class GameDataManager : SingleTon<GameDataManager>
         default:
             return "모름";
         }
+    }
+
+    public void SaveGameData()
+    {
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.userCurrency.userCoin", userData.userCurrency.userCoin);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.userCurrency.userRubby", userData.userCurrency.userRubby);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.userCurrency.knightPiece", userData.userCurrency.knightPiece);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.userCurrency.piratePiece", userData.userCurrency.piratePiece);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.userCurrency.starPiece", userData.userCurrency.starPiece);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.userCurrency.scientistPiece", userData.userCurrency.knightPiece);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.userCurrency.studentPiece", userData.userCurrency.userCoin);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.userCurrency.cowboyPiece", userData.userCurrency.cowboyPiece);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.userCurrency.fishermanPiece", userData.userCurrency.fishermanPiece);
+
+        //PlayerPrefs.SetString(PREFIX_PREFS + "mercenaryDataName", userData.userCurrency.cowboyPiece);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "mercenaryDataLevel", userData.userCurrency.fishermanPiece);
+
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.stageNum", userData.stageNum);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "mercenaryDataLevel", userData.score);
+
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.upgradePlayer.powerLevel", userData.upgradePlayer.powerLevel);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.upgradePlayer.attackSpeedLevel", userData.upgradePlayer.attackSpeedLevel);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "userData.upgradePlayer.criticalLevel", userData.upgradePlayer.criticalLevel);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "mercenaryDataLevel", userData.upgradePlayer.buffDurationLevel);
+        //PlayerPrefs.SetInt(PREFIX_PREFS + "mercenaryDataLevel", userData.upgradePlayer.freeCoinLevel);
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/yyb.dat");
+        bf.Serialize(file, userData);
+        file.Close();
     }
 
     public void SaveGameData(ITEM_TYPE itemType = ITEM_TYPE.None, long itemCount = 0, 
@@ -355,12 +459,12 @@ public class GameDataManager : SingleTon<GameDataManager>
 
     public void SetUserData()
     {
-        LoadUserDataLoginParts();
+        //LoadUserDataLoginParts();
 
-        if (userData.loginKey.Equals("") && userData.nickName.Equals(""))
-        {
-            userData.nickName = GenerateTempUserNickName("user");
-        }
+        //if (userData.loginKey.Equals("") && userData.nickName.Equals(""))
+        //{
+        //    userData.nickName = GenerateTempUserNickName("user");
+        //}
 
         userData.userCurrency.userCoin = 0;
         userData.userCurrency.userRubby = 0;
@@ -377,7 +481,10 @@ public class GameDataManager : SingleTon<GameDataManager>
         userData.mercenaryDataList = new List<MercenaryData>();
         userData.getMercenaryDataDic = new Dictionary<string, MercenaryData>();
 
-        PlayerManager.Instance.ChangeLeaderCat(userData.leaderData.catImage);
+        userResourceData.milkSpriteList = new List<Sprite>();
+        userResourceData.mercenaryResourceDataList = new List<MercenaryResourceData>();
+
+        //PlayerManager.Instance.ChangeLeaderCat(userData.leaderData.catImage);
     }
 
     public static string GenerateTempUserNickName(string prefix)
@@ -454,16 +561,18 @@ public class GameDataManager : SingleTon<GameDataManager>
 
         userData.userCurrency.userCoin = userData.userCurrency.userCoin - catPrice;
 
-        if (0 != catPrice)
-        {
-            MercenaryData m = GetMyMercenaryData(key);
-            SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, m.name, m.level);
-        }
-        else
-        {
-            MercenaryData m = GetMyMercenaryData(key);
-            SaveGameData(ITEM_TYPE.None, 0, m.name, m.level);
-        }
+        //if (0 != catPrice)
+        //{
+        //    MercenaryData m = GetMyMercenaryData(key);
+        //    SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, m.name, m.level);
+        //}
+        //else
+        //{
+        //    MercenaryData m = GetMyMercenaryData(key);
+        //    SaveGameData(ITEM_TYPE.None, 0, m.name, m.level);
+        //}
+
+        SaveGameData();
     }
 
     public void SelectMercenary(MercenaryData _mercenaryData)
@@ -681,14 +790,16 @@ public class GameDataManager : SingleTon<GameDataManager>
 
         userData.upgradePlayer.powerLevel++;
 
-        if (0 != _price)
-        {
-            SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, "", 0, false, true);
-        }
-        else
-        {
-            SaveGameDataUpgradePlayer();
-        }
+        //if (0 != _price)
+        //{
+        //    SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, "", 0, false, true);
+        //}
+        //else
+        //{
+        //    SaveGameDataUpgradePlayer();
+        //}
+
+        SaveGameData();
     }
 
     public void SetUpgradeAttackSpeed(int _price)
@@ -697,14 +808,16 @@ public class GameDataManager : SingleTon<GameDataManager>
 
         userData.upgradePlayer.attackSpeedLevel++;
 
-        if (0 != _price)
-        {
-            SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, "", 0, false, true);
-        }
-        else
-        {
-            SaveGameDataUpgradePlayer();
-        }
+        //if (0 != _price)
+        //{
+        //    SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, "", 0, false, true);
+        //}
+        //else
+        //{
+        //    SaveGameDataUpgradePlayer();
+        //}
+
+        SaveGameData();
     }
 
     public void SetUpgradeCritical(int _price)
@@ -713,14 +826,16 @@ public class GameDataManager : SingleTon<GameDataManager>
 
         userData.upgradePlayer.criticalLevel++;
 
-        if (0 != _price)
-        {
-            SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, "", 0, false, true);
-        }
-        else
-        {
-            SaveGameDataUpgradePlayer();
-        }
+        //if (0 != _price)
+        //{
+        //    SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, "", 0, false, true);
+        //}
+        //else
+        //{
+        //    SaveGameDataUpgradePlayer();
+        //}
+
+        SaveGameData();
     }
 
     public void SetUpgradeSkillDamage(int _price)
@@ -729,14 +844,16 @@ public class GameDataManager : SingleTon<GameDataManager>
 
         userData.upgradePlayer.buffDurationLevel++;
 
-        if (0 != _price)
-        {
-            SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, "", 0, false, true);
-        }
-        else
-        {
-            SaveGameDataUpgradePlayer();
-        }
+        //if (0 != _price)
+        //{
+        //    SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, "", 0, false, true);
+        //}
+        //else
+        //{
+        //    SaveGameDataUpgradePlayer();
+        //}
+
+        SaveGameData();
     }
 
     public void SetUpgradeFreeCoin(int _price)
@@ -745,14 +862,16 @@ public class GameDataManager : SingleTon<GameDataManager>
 
         userData.upgradePlayer.freeCoinLevel++;
 
-        if (0 != _price)
-        {
-            SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, "", 0, false, true);
-        }
-        else
-        {
-            SaveGameDataUpgradePlayer();
-        }
+        //if (0 != _price)
+        //{
+        //    SaveGameData(ITEM_TYPE.Gold, userData.userCurrency.userCoin, "", 0, false, true);
+        //}
+        //else
+        //{
+        //    SaveGameDataUpgradePlayer();
+        //}
+
+        SaveGameData();
     }
 
     public bool isUpgrade(int _price)

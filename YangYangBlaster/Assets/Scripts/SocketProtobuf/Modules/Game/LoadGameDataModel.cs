@@ -60,12 +60,12 @@ public class LoadGameDataModel : BaseModel<LoadGameDataModel>
                     mercenaryData.damage = readData.damage;
                     mercenaryData.moveSpeed = readData.moveSpeed;
                     mercenaryData.attackSpeed = readData.attackSpeed;
-                    mercenaryData.catImage = readData.catImage;
-                    mercenaryData.bulletImage = readData.bulletImage;
+                    //mercenaryData.catImage = readData.catImage;
+                    //mercenaryData.bulletImage = readData.bulletImage;
                     mercenaryData.mercenaryGetType = readData.mercenaryGetType;
                     mercenaryData.price = readData.price;
-                    mercenaryData.runtimeAnimator = readData.runtimeAnimator;
-                    mercenaryData.uiRuntimeAnimator = readData.uiRuntimeAnimator;
+                    //mercenaryData.runtimeAnimator = readData.runtimeAnimator;
+                    //mercenaryData.uiRuntimeAnimator = readData.uiRuntimeAnimator;
 
                     GameDataManager.Instance.userData.getMercenaryDataDic.Add(
                         mercenary.MercenaryName, mercenaryData);

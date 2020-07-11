@@ -47,6 +47,16 @@ MonoBehaviour:
     nickName: 
     stageNum: 0
     score: 0
+    userCurrency:
+      userCoin: 0
+      userRubby: 0
+      knightPiece: 0
+      piratePiece: 0
+      starPiece: 0
+      scientistPiece: 0
+      studentPiece: 0
+      cowboyPiece: 0
+      fishermanPiece: 0
     upgradePlayer:
       powerLevel: 1
       powerIncrease: 10
@@ -65,152 +75,166 @@ MonoBehaviour:
       freeCoinPrice: 1200
     milkItemList:
     - type: 0
-      milkSprite: {fileID: 21300000, guid: e2f5e03ae2793e643885a661a8389a55, type: 3}
       milkLevel: 1
       milkDuration: 3
       milkInfo: The monster slows down for the duration.
     - type: 1
-      milkSprite: {fileID: 21300000, guid: 816bd94a366063e46974550a246ba92b, type: 3}
       milkLevel: 1
       milkDuration: 2
       milkInfo: The monster pauses for the duration.
     - type: 2
-      milkSprite: {fileID: 21300000, guid: 83bfe439599887c45986154c8b03c574, type: 3}
       milkLevel: 1
       milkDuration: 3
       milkInfo: attack, movement speed is increased for the duration.
     - type: 3
-      milkSprite: {fileID: 21300000, guid: f89f2eeff1b62de42bf730452915ae27, type: 3}
       milkLevel: 1
       milkDuration: 2
       milkInfo: During the duration, the attack power increases.
     - type: 4
-      milkSprite: {fileID: 21300000, guid: 3ca4420baf2da3b449881c458e6533fb, type: 3}
       milkLevel: 1
       milkDuration: 4
       milkInfo: During the duration, the earned coins increase.
     - type: 5
-      milkSprite: {fileID: 21300000, guid: 66870979ea05f644eaaa2076c4db30ad, type: 3}
       milkLevel: 1
       milkDuration: 2
       milkInfo: It grows in size for the duration.
     - type: 6
-      milkSprite: {fileID: 21300000, guid: 9a7fab3474d575e46bbdf4922a007cd5, type: 3}
       milkLevel: 1
       milkDuration: 4
       milkInfo: Become invincible for the duration.
     leaderData:
+      type: 0
       name: 
       damage: 0
       moveSpeed: 0
       attackSpeed: 0
-      catImage: {fileID: 0}
       level: 0
       price: 0
       mercenaryGetType: 0
-      bulletImage: {fileID: 0}
-      runtimeAnimator: {fileID: 0}
-      uiRuntimeAnimator: {fileID: 0}
     mercenaryDataList: []
     loginType: 0
     loginKey: 
     accessKey: 
   freeCoin: 200
+  userResourceData:
+    milkSpriteList:
+    - {fileID: 21300000, guid: e2f5e03ae2793e643885a661a8389a55, type: 3}
+    - {fileID: 21300000, guid: 816bd94a366063e46974550a246ba92b, type: 3}
+    - {fileID: 21300000, guid: 83bfe439599887c45986154c8b03c574, type: 3}
+    - {fileID: 21300000, guid: f89f2eeff1b62de42bf730452915ae27, type: 3}
+    - {fileID: 21300000, guid: 3ca4420baf2da3b449881c458e6533fb, type: 3}
+    - {fileID: 21300000, guid: 66870979ea05f644eaaa2076c4db30ad, type: 3}
+    - {fileID: 21300000, guid: 9a7fab3474d575e46bbdf4922a007cd5, type: 3}
+    mercenaryResourceDataList:
+    - catImage: {fileID: 21300000, guid: 6d9744f12bdcc584cba80104c51f1c05, type: 3}
+      bulletImage: {fileID: 21300000, guid: 675bfd46ae1b77646b42df56d80483ee, type: 3}
+      runtimeAnimator: {fileID: 9100000, guid: b8f0392a872b265458d542292082b6ac, type: 2}
+      uiRuntimeAnimator: {fileID: 9100000, guid: fa2f38e69171eee40b437a805cdf4fe2,
+        type: 2}
+    - catImage: {fileID: 21300000, guid: b4911ee06e40d1d4c8b7fa10cd118cdb, type: 3}
+      bulletImage: {fileID: 21300000, guid: 85442966ca4488e4fbc57d8e67ac49e2, type: 3}
+      runtimeAnimator: {fileID: 9100000, guid: 600847ea57b3d0c45964ad416bf9f9a5, type: 2}
+      uiRuntimeAnimator: {fileID: 22100000, guid: def7752d062eb954bb6c66a1caa3329b,
+        type: 2}
+    - catImage: {fileID: 21300000, guid: 32c4e6cdde238cf4e9cb0773bdac172f, type: 3}
+      bulletImage: {fileID: 21300000, guid: c114196b329a17a4d8955edbb5f6200a, type: 3}
+      runtimeAnimator: {fileID: 22100000, guid: b1de54e23b2d5554c9bcf376e5099ace,
+        type: 2}
+      uiRuntimeAnimator: {fileID: 22100000, guid: 440999379b3615c408c0a4ecb0b1eef8,
+        type: 2}
+    - catImage: {fileID: 21300000, guid: 35998915734498141b95cadb26231553, type: 3}
+      bulletImage: {fileID: 21300000, guid: bf89af1cceee0e94eb3e47cace36b9eb, type: 3}
+      runtimeAnimator: {fileID: 22100000, guid: 8e73525f5c2691a4980273bffd53ee3d,
+        type: 2}
+      uiRuntimeAnimator: {fileID: 22100000, guid: 34a8ebeeca8a4f74fadf0a08061196d0,
+        type: 2}
+    - catImage: {fileID: 21300000, guid: c48acaf034ec5ab499762bab96a56693, type: 3}
+      bulletImage: {fileID: 21300000, guid: 4ec063cee31e9f1459f8d5517c32c8a1, type: 3}
+      runtimeAnimator: {fileID: 0}
+      uiRuntimeAnimator: {fileID: 0}
+    - catImage: {fileID: 21300000, guid: 2372ec25010351a4e9bf0b8749780fdd, type: 3}
+      bulletImage: {fileID: 21300000, guid: fb6f7e27e66218449aafc7413eb5c3d1, type: 3}
+      runtimeAnimator: {fileID: 22100000, guid: f6d92b2db1eed1c42846dafbb7b8f3b0,
+        type: 2}
+      uiRuntimeAnimator: {fileID: 22100000, guid: dd7d156e051aa414d9fd1f7c301b4b19,
+        type: 2}
+    - catImage: {fileID: 21300000, guid: ed6789e074f7ea74c8115e0223368ed2, type: 3}
+      bulletImage: {fileID: 21300000, guid: bf89af1cceee0e94eb3e47cace36b9eb, type: 3}
+      runtimeAnimator: {fileID: 22100000, guid: caa42bc8eabfccc499b5ceffd90048a0,
+        type: 2}
+      uiRuntimeAnimator: {fileID: 22100000, guid: a241bf91f5eaf824e99b671dce711216,
+        type: 2}
+    - catImage: {fileID: 21300000, guid: 3635608b407191047a644e287db4eccb, type: 3}
+      bulletImage: {fileID: 21300000, guid: 0119a19eae32f62489d7b08a9b60483e, type: 3}
+      runtimeAnimator: {fileID: 22100000, guid: 00d792936b32a4d4f930bf5524f228db,
+        type: 2}
+      uiRuntimeAnimator: {fileID: 22100000, guid: 70b255773b6c0724eab2e2e47db6a7fb,
+        type: 2}
   ReadMercenaryDataList:
-  - name: MIA
+  - type: 0
+    name: MIA
     damage: 1
     moveSpeed: 3
     attackSpeed: 0.12
-    catImage: {fileID: 21300000, guid: 6d9744f12bdcc584cba80104c51f1c05, type: 3}
     level: 1
     price: 0
     mercenaryGetType: 0
-    bulletImage: {fileID: 21300000, guid: 675bfd46ae1b77646b42df56d80483ee, type: 3}
-    runtimeAnimator: {fileID: 9100000, guid: b8f0392a872b265458d542292082b6ac, type: 2}
-    uiRuntimeAnimator: {fileID: 9100000, guid: fa2f38e69171eee40b437a805cdf4fe2, type: 2}
-  - name: MEOWMEOW
+  - type: 1
+    name: MEOWMEOW
     damage: 1
     moveSpeed: 3
     attackSpeed: 1
-    catImage: {fileID: 21300000, guid: b4911ee06e40d1d4c8b7fa10cd118cdb, type: 3}
     level: 0
     price: 100
     mercenaryGetType: 0
-    bulletImage: {fileID: 21300000, guid: 85442966ca4488e4fbc57d8e67ac49e2, type: 3}
-    runtimeAnimator: {fileID: 9100000, guid: 600847ea57b3d0c45964ad416bf9f9a5, type: 2}
-    uiRuntimeAnimator: {fileID: 22100000, guid: def7752d062eb954bb6c66a1caa3329b,
-      type: 2}
-  - name: BABABA
+  - type: 2
+    name: BABABA
     damage: 1
     moveSpeed: 3
     attackSpeed: 1
-    catImage: {fileID: 21300000, guid: 32c4e6cdde238cf4e9cb0773bdac172f, type: 3}
     level: 0
     price: 100
     mercenaryGetType: 2
-    bulletImage: {fileID: 21300000, guid: c114196b329a17a4d8955edbb5f6200a, type: 3}
-    runtimeAnimator: {fileID: 22100000, guid: b1de54e23b2d5554c9bcf376e5099ace, type: 2}
-    uiRuntimeAnimator: {fileID: 22100000, guid: 440999379b3615c408c0a4ecb0b1eef8,
-      type: 2}
-  - name: STAR
+  - type: 3
+    name: STAR
     damage: 1
     moveSpeed: 3
     attackSpeed: 1
-    catImage: {fileID: 21300000, guid: 35998915734498141b95cadb26231553, type: 3}
     level: 0
     price: 100
     mercenaryGetType: 0
-    bulletImage: {fileID: 21300000, guid: bf89af1cceee0e94eb3e47cace36b9eb, type: 3}
-    runtimeAnimator: {fileID: 22100000, guid: 8e73525f5c2691a4980273bffd53ee3d, type: 2}
-    uiRuntimeAnimator: {fileID: 22100000, guid: 34a8ebeeca8a4f74fadf0a08061196d0,
-      type: 2}
-  - name: YAKYAK
+  - type: 4
+    name: YAKYAK
     damage: 1
     moveSpeed: 3
     attackSpeed: 1
-    catImage: {fileID: 21300000, guid: c48acaf034ec5ab499762bab96a56693, type: 3}
     level: 0
     price: 100
     mercenaryGetType: 0
-    bulletImage: {fileID: 21300000, guid: 4ec063cee31e9f1459f8d5517c32c8a1, type: 3}
-    runtimeAnimator: {fileID: 0}
-    uiRuntimeAnimator: {fileID: 0}
-  - name: STUDY
+  - type: 5
+    name: STUDY
     damage: 1
     moveSpeed: 3
     attackSpeed: 1
-    catImage: {fileID: 21300000, guid: 2372ec25010351a4e9bf0b8749780fdd, type: 3}
     level: 0
     price: 100
     mercenaryGetType: 0
-    bulletImage: {fileID: 21300000, guid: fb6f7e27e66218449aafc7413eb5c3d1, type: 3}
-    runtimeAnimator: {fileID: 22100000, guid: f6d92b2db1eed1c42846dafbb7b8f3b0, type: 2}
-    uiRuntimeAnimator: {fileID: 22100000, guid: dd7d156e051aa414d9fd1f7c301b4b19,
-      type: 2}
-  - name: COWBOY
+  - type: 6
+    name: COWBOY
     damage: 1
     moveSpeed: 3
     attackSpeed: 1
-    catImage: {fileID: 21300000, guid: ed6789e074f7ea74c8115e0223368ed2, type: 3}
     level: 0
     price: 100
     mercenaryGetType: 0
-    bulletImage: {fileID: 21300000, guid: bf89af1cceee0e94eb3e47cace36b9eb, type: 3}
-    runtimeAnimator: {fileID: 22100000, guid: caa42bc8eabfccc499b5ceffd90048a0, type: 2}
-    uiRuntimeAnimator: {fileID: 22100000, guid: a241bf91f5eaf824e99b671dce711216,
-      type: 2}
-  - name: FISHERMAN
+  - type: 7
+    name: FISHERMAN
     damage: 1
     moveSpeed: 3
     attackSpeed: 1
-    catImage: {fileID: 21300000, guid: 3635608b407191047a644e287db4eccb, type: 3}
     level: 0
     price: 100
     mercenaryGetType: 0
-    bulletImage: {fileID: 21300000, guid: 0119a19eae32f62489d7b08a9b60483e, type: 3}
-    runtimeAnimator: {fileID: 22100000, guid: 00d792936b32a4d4f930bf5524f228db, type: 2}
-    uiRuntimeAnimator: {fileID: 22100000, guid: 70b255773b6c0724eab2e2e47db6a7fb,
-      type: 2}
   stageDataList: []
   BossDataList:
   - name: 
@@ -222,3 +246,5 @@ MonoBehaviour:
     radius: 1.16
     deadColor: {r: 0.3137255, g: 0.28627452, b: 0.41960785, a: 1}
     runtimeAnimator: {fileID: 9100000, guid: eab555710935c7548ac05c3679170b19, type: 2}
+  androidVersion: 
+  iosVersion: 

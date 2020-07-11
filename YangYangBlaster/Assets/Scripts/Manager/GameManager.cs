@@ -71,7 +71,7 @@ public class GameManager : SingleTon<GameManager>
     {
         ChangeGameState(GameState.Loading);
 
-        Net.NetManager.Instance.Connect();
+        //Net.NetManager.Instance.Connect();
         yield return LoadingManager.Instance.SetLoading();
 
         yield return GameManagerInit();
@@ -94,7 +94,9 @@ public class GameManager : SingleTon<GameManager>
         {            
             LoginManager.Instance.DoAutoLogin();
         }
-       
+
+        GameDataManager.Instance.LoadGameData();
+
         ChangeGameState(GameState.Lobby);
 
         yield return null;
@@ -503,7 +505,8 @@ public class GameManager : SingleTon<GameManager>
         GameDataManager.Instance.userData.userCurrency.userCoin += _coin;
         if (0 != _coin)
         {
-            GameDataManager.Instance.SaveGameData(Msg.ITEM_TYPE.Gold, GameDataManager.Instance.userData.userCurrency.userCoin);
+            //GameDataManager.Instance.SaveGameData(Msg.ITEM_TYPE.Gold, GameDataManager.Instance.userData.userCurrency.userCoin);
+            GameDataManager.Instance.SaveGameData();
         }
 
         UIManager.Instance.inGameUI.SetCoinUI();

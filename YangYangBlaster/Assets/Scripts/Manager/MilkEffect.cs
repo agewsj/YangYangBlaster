@@ -28,7 +28,7 @@ public class MilkEffect : MonoBehaviour
         }
     }
 
-    public void SetMilkEffect(MilkItem _milkItem, Vector2 _pos)
+    public void SetMilkEffect(MilkItem _milkItem, Sprite _milkSprite, Vector2 _pos)
     {
         transform.position = _pos;
 
@@ -38,7 +38,7 @@ public class MilkEffect : MonoBehaviour
         rig.bodyType = RigidbodyType2D.Dynamic;
         milkItem = _milkItem;
 
-        sprite.sprite = milkItem.milkSprite;
+        sprite.sprite = _milkSprite;
 
         rig.AddForce(new Vector2(ranX, ranY), ForceMode2D.Impulse);
     }

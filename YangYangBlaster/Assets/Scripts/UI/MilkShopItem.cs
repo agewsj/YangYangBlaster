@@ -16,9 +16,9 @@ public class MilkShopItem : MonoBehaviour
     public Text infoLevelText;
     public Text infoSummaryText;
 
-    public void SetMilkShopItem(MilkItem _item)
+    public void SetMilkShopItem(MilkItem _item, Sprite _milkSprite)
     {
-        milkImage.sprite = _item.milkSprite;
+        milkImage.sprite = _milkSprite;
         milkNameText.text = string.Format("{0} MILK", _item.type);
         milkLevelText.text = string.Format("LEVEL.{0}", _item.milkLevel);
         
