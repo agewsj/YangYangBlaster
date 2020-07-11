@@ -207,7 +207,7 @@ public class LoginManager : SingleTon<LoginManager>
         var loginKey = GameDataManager.Instance.userData.loginKey;
         var nickName = GameDataManager.Instance.userData.nickName;
         
-        RpcLogin(loginType, loginKey, nickName, "");
+        //RpcLogin(loginType, loginKey, nickName, "");
     }
 
 
