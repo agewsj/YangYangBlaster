@@ -832,10 +832,6 @@ public class GameDataManager : SingleTon<GameDataManager>
         {
             Application.OpenURL("itms-apps://itunes.apple.com/app/id1520506681");
         }
-        else
-        {
-            Application.OpenURL("market://details?id=com.TongTongStudio.YangYangBlaster");
-        }
     }
 
     public string GetBundleVer()
