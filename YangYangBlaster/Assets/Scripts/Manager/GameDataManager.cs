@@ -482,9 +482,6 @@ public class GameDataManager : SingleTon<GameDataManager>
         userData.mercenaryDataList = new List<MercenaryData>();
         userData.getMercenaryDataDic = new Dictionary<string, MercenaryData>();
 
-        userResourceData.milkSpriteList = new List<Sprite>();
-        userResourceData.mercenaryResourceDataList = new List<MercenaryResourceData>();
-
         //PlayerManager.Instance.ChangeLeaderCat(userData.leaderData.catImage);
     }
 

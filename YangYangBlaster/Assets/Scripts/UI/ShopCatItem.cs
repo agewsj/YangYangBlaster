@@ -25,7 +25,8 @@ public class ShopCatItem : MonoBehaviour
         mercenaryData = _mercenaryData;
 
         catName.text = mercenaryData.name;
-        //catImage.sprite = mercenaryData.catImage;
+        Debug.Log(GameDataManager.Instance.userResourceData.mercenaryResourceDataList.Count);
+        catImage.sprite = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)mercenaryData.type].catImage;
         levelText.text = string.Format("Lv.{0}", mercenaryData.level);
         if (mercenaryData.price == 0)
         {
@@ -34,7 +35,7 @@ public class ShopCatItem : MonoBehaviour
 
         priceText.text = string.Format("{0}", mercenaryData.price);
 
-        //animator.runtimeAnimatorController = mercenaryData.uiRuntimeAnimator;
+        animator.runtimeAnimatorController = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)mercenaryData.type].uiRuntimeAnimator;
 
         if (GameDataManager.Instance.userData.leaderData.name == mercenaryData.name)
         {
