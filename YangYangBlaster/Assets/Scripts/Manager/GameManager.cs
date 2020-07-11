@@ -76,6 +76,8 @@ public class GameManager : SingleTon<GameManager>
 
         yield return GameManagerInit();
 
+        yield return GameDataManager.Instance.GetServerVersion();
+
         GameDataManager.Instance.GetDeviceVer();
     }
 
@@ -90,7 +92,8 @@ public class GameManager : SingleTon<GameManager>
         GameDataManager.Instance.SetUserData();
         if(Application.platform == RuntimePlatform.Android 
             || Application.platform == RuntimePlatform.IPhonePlayer
-            || Application.platform == RuntimePlatform.WindowsEditor)
+            || Application.platform == RuntimePlatform.WindowsEditor
+            || Application.platform == RuntimePlatform.OSXEditor)
         {            
             LoginManager.Instance.DoAutoLogin();
         }

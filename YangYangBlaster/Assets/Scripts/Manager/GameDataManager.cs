@@ -5,6 +5,7 @@ using System;
 using Msg;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.Networking;
 #if UNITY_IOS
 using System.Runtime.InteropServices;
 #endif
@@ -888,8 +889,60 @@ public class GameDataManager : SingleTon<GameDataManager>
     #endregion
 
     #region VersionInfo
-    public void CheckUpdateVersion()
+    [Serializable]
+    public class VersionInfo
     {
+        [SerializeField]
+        public string Android_Live;
+        [SerializeField]
+        public string Android_Test;
+        [SerializeField]
+        public string IOS_Live;
+        [SerializeField]
+        public string IOS_Test;
+    }
+
+    public VersionInfo versionInfo;
+
+    public IEnumerator GetServerVersion()
+    {
+        string uri = "https://raw.githubusercontent.com/agewsj/YangYangBlaster/master/Version.json";
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.Log(pages[page] + ": Error: " + webRequest.error);
+            }
+            else
+            {
+                Debug.Log(webRequest.downloadHandler.text);
+                versionInfo = JsonUtility.FromJson<VersionInfo>(webRequest.downloadHandler.text);
+
+                string ver = string.Format("{0}_{1}", Application.version, GameDataManager.Instance.GetBundleVer());
+
+#if UNITY_ANDROID
+                if (ver != versionInfo.Android_Live || ver != versionInfo.Android_Test)
+                {
+                    CheckUpdateVersion();
+                }
+#elif UNITY_IOS
+                if (ver != versionInfo.IOS_Live || ver != versionInfo.IOS_Test)
+                {
+                    CheckUpdateVersion();
+                }
+#endif
+            }
+        }
+    }
+
+    public void CheckUpdateVersion()
+    {       
         if (Application.platform == RuntimePlatform.Android)
         {
             Application.OpenURL("market://details?id=com.TongTongStudio.YangYangBlaster");
@@ -898,21 +951,17 @@ public class GameDataManager : SingleTon<GameDataManager>
         {
             Application.OpenURL("itms-apps://itunes.apple.com/app/id1520506681");
         }
-        else
-        {
-            Application.OpenURL("market://details?id=com.TongTongStudio.YangYangBlaster");
-        }
     }
 
     public string GetBundleVer()
     {
-    #if !UNITY_EDITOR
-    #if UNITY_ANDROID
+#if !UNITY_EDITOR
+#if UNITY_ANDROID
         return AndroidVersionCode().ToString();
-    #elif UNITY_IOS
+#elif UNITY_IOS
         return GetBundleVersion();
-    #endif
-    #endif
+#endif
+#endif
         return "1";
     }
 
@@ -947,5 +996,5 @@ public class GameDataManager : SingleTon<GameDataManager>
     static extern string GetDeviceVersion();
 #endif
 
-    #endregion
+#endregion
 }
