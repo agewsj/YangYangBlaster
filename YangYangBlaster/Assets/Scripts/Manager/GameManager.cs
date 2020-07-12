@@ -498,7 +498,8 @@ public class GameManager : SingleTon<GameManager>
         GameDataManager.Instance.userData.score = GameDataManager.Instance.userData.score + _score;
         if (0 != _score)
         {
-            GameDataManager.Instance.SaveGameDataStage();
+            //GameDataManager.Instance.SaveGameDataStage();
+            GameDataManager.Instance.SaveGameData();
             AchievementManager.Instance.ReportLeaderBoard(_score);
         }
     }

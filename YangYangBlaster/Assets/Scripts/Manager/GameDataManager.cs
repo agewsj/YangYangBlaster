@@ -224,20 +224,21 @@ public class GameDataManager : SingleTon<GameDataManager>
         //userData.upgradePlayer.buffDurationLevel = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.upgradePlayer.buffDurationLevel", 0);
         //userData.upgradePlayer.freeCoinLevel = PlayerPrefs.GetInt(PREFIX_PREFS + "userData.upgradePlayer.freeCoinLevel", 0);
 
-        BinaryFormatter bf = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/yyb.dat";
-        if (File.Exists(path))
+
+        try
         {
-            try
+            BinaryFormatter bf = new BinaryFormatter();
+            string path = Application.persistentDataPath + "/yyb.dat";
+            if (File.Exists(path))
             {
                 FileStream file = File.Open(path, FileMode.Open);
                 userData = (UserData)bf.Deserialize(file);
                 file.Close();
             }
-            catch (IOException e)
-            {
-                Debug.Log("Load game data error");
-            }
+        }
+        catch (IOException e)
+        {
+            Debug.Log("Load game data error");
         }
     }
 
@@ -292,10 +293,17 @@ public class GameDataManager : SingleTon<GameDataManager>
         //PlayerPrefs.SetInt(PREFIX_PREFS + "mercenaryDataLevel", userData.upgradePlayer.buffDurationLevel);
         //PlayerPrefs.SetInt(PREFIX_PREFS + "mercenaryDataLevel", userData.upgradePlayer.freeCoinLevel);
 
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/yyb.dat");
-        bf.Serialize(file, userData);
-        file.Close();
+        try
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Create(Application.persistentDataPath + "/yyb.dat");
+            bf.Serialize(file, userData);
+            file.Close();
+        }
+        catch (IOException e)
+        {
+            Debug.Log("Load game data error");
+        }
     }
 
     public void SaveGameData(ITEM_TYPE itemType = ITEM_TYPE.None, long itemCount = 0, 
