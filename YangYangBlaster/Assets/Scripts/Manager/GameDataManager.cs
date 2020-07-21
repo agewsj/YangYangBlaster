@@ -1001,5 +1001,97 @@ public class GameDataManager : SingleTon<GameDataManager>
     static extern string GetDeviceVersion();
 #endif
 
-#endregion
+    #endregion
+
+    #region PlayerPrefabsData
+    string loginStr = "Login";
+
+    public bool isGetLoginData()
+    {
+        bool result = false;
+        int i = PlayerPrefs.GetInt(loginStr);
+
+        if (i == 0)
+        {
+            result = false;
+            PlayerPrefs.SetInt(loginStr, 1);
+        }
+        else
+        {
+            result = true;
+        }
+
+        return result;
+    }
+
+    string soundStr = "Sound";
+
+    public void SetSoundData(bool _value)
+    {
+        int i = 0;
+
+        if (_value == false)
+        {
+            i = 0;
+        }
+        else
+        {
+            i = 1;
+        }
+
+        PlayerPrefs.SetInt(soundStr, i);
+    }
+
+    public bool isGetSoundData()
+    {
+        bool result = false;
+        int i = PlayerPrefs.GetInt(soundStr);
+
+        if (i == 0)
+        {
+            result = false;
+        }
+        else
+        {
+            result = true;
+        }
+
+        return result;
+    }
+
+    string vibrationStr = "Vibration";
+
+    public void SetVibrationData(bool _value)
+    {
+        int i = 0;
+
+        if (_value == false)
+        {
+            i = 0;
+        }
+        else
+        {
+            i = 1;
+        }
+
+        PlayerPrefs.SetInt(vibrationStr, i);
+    }
+
+    public bool isGetVibrationData()
+    {
+        bool result = false;
+        int i = PlayerPrefs.GetInt(vibrationStr);
+
+        if (i == 0)
+        {
+            result = false;
+        }
+        else
+        {
+            result = true;
+        }
+
+        return result;
+    }
+    #endregion
 }

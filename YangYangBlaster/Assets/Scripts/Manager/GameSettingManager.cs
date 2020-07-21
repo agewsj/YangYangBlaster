@@ -20,10 +20,14 @@ public class GameSettingManager : SingleTon<GameSettingManager>
 
         SoundManager.Instance.BGMMute(isMute);
         SoundManager.Instance.OtherMute(isMute);
+
+        GameDataManager.Instance.SetSoundData(isMute);
     }
 
     public void SetVibration(bool _isVibration)
     {
         isVibration = _isVibration;
+
+        GameDataManager.Instance.SetVibrationData(isVibration);
     }
 }

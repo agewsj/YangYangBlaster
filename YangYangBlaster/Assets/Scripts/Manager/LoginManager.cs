@@ -106,9 +106,11 @@ public class LoginManager : SingleTon<LoginManager>
                 // 구글 플레이 게임 서비스 로그인 성공 처리
                 string idToken = ((PlayGamesLocalUser)Social.localUser).GetIdToken() == null ?
                 "" : ((PlayGamesLocalUser)Social.localUser).GetIdToken();
-
-                AchievementManager.Instance.ReportAchievement(AchievementManager.AchievementType.Login);
-
+                if (GameDataManager.Instance.isGetLoginData() == false)
+                {
+                    AchievementManager.Instance.ReportAchievement(AchievementManager.AchievementType.Login);
+                }
+                
                 RpcLogin(loginType, loginKey, nickName, idToken);
             }
             else
@@ -142,7 +144,11 @@ public class LoginManager : SingleTon<LoginManager>
                 Debug.Log("Login : " + Social.localUser.userName);
                 // to do ...
                 // 로그인 성공 처리
-                AchievementManager.Instance.ReportAchievement(AchievementManager.AchievementType.Login);
+                if (GameDataManager.Instance.isGetLoginData() == false)
+                {
+                    AchievementManager.Instance.ReportAchievement(AchievementManager.AchievementType.Login);
+                }
+                
                 NonCertLogin();
             }
             else

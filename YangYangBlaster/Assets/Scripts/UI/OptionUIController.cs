@@ -14,6 +14,36 @@ public class OptionUIController : MonoBehaviour
     public Image vibrationToggleOn;
     public Image vibrationToggleOff;
 
+    private void OnEnable()
+    {
+        OnInitialized();
+    }
+
+    private void OnInitialized()
+    {
+        bool isSoundToggle = GameDataManager.Instance.isGetSoundData();
+
+        if (isSoundToggle == false)
+        {
+            SoundToggleButton(0);
+        }
+        else
+        {
+            SoundToggleButton(1);
+        }
+
+        bool isVibration = GameDataManager.Instance.isGetVibrationData();
+
+        if (isVibration == false)
+        {
+            VibrationToggleButton(1);
+        }
+        else
+        {
+            VibrationToggleButton(0);
+        }
+    }
+
     public void SoundToggleButton(int _num)
     {
         if (_num == 0)

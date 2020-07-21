@@ -100,6 +100,9 @@ public class GameManager : SingleTon<GameManager>
 
         GameDataManager.Instance.LoadGameData();
 
+        GameSettingManager.Instance.SetSoundMute(GameDataManager.Instance.isGetSoundData());
+        GameSettingManager.Instance.SetVibration(GameDataManager.Instance.isGetVibrationData());
+
         ChangeGameState(GameState.Lobby);
 
         yield return null;
