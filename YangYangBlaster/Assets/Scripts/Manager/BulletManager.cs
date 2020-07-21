@@ -55,7 +55,7 @@ public class BulletManager : SingleTon<BulletManager>
             CreateBullet();
 
             CreateMercenary1Bullet();
-            CreateMercenary2Bullet();
+            CreateMercenary2Bullet();            
         }
         else
         {
@@ -87,16 +87,26 @@ public class BulletManager : SingleTon<BulletManager>
     {
         MercenaryData data = GameDataManager.Instance.userData.leaderData;
         MercenaryResourceData resource = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data.type];
+        bulletSprite = resource.bulletImage; 
 
         if (GameDataManager.Instance.userData.mercenaryDataList.Count == 1)
         {
-            mercenary1BulletSprite = resource.bulletImage;
+            MercenaryData data1 = GameDataManager.Instance.userData.mercenaryDataList[0];
+            MercenaryResourceData resource1 = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data1.type];
+
+            mercenary1BulletSprite = resource1.bulletImage;
             mercenary2BulletSprite = null;
         }
         else if (GameDataManager.Instance.userData.mercenaryDataList.Count >= 2)
         {
-            mercenary1BulletSprite = resource.bulletImage;
-            mercenary2BulletSprite = resource.bulletImage;
+            MercenaryData data1 = GameDataManager.Instance.userData.mercenaryDataList[0];
+            MercenaryResourceData resource1 = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data1.type];
+
+            MercenaryData data2 = GameDataManager.Instance.userData.mercenaryDataList[1];
+            MercenaryResourceData resource2 = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)data2.type];
+
+            mercenary1BulletSprite = resource1.bulletImage;
+            mercenary2BulletSprite = resource2.bulletImage;
         }
     }
 
@@ -129,7 +139,7 @@ public class BulletManager : SingleTon<BulletManager>
 
     public void ShotMercenary1Bullet(Vector2 _createPos)
     {
-        mercenary1BulletList[mercenary1ActiveBullet].SetBulletSprite(mercenary1BulletSprite);
+        //mercenary1BulletList[mercenary1ActiveBullet].SetBulletSprite(mercenary1BulletSprite);
         mercenary1BulletList[mercenary1ActiveBullet].StartMove(_createPos);
 
         mercenary1ActiveBullet++;
@@ -152,7 +162,7 @@ public class BulletManager : SingleTon<BulletManager>
 
     public void ShotMercenary2Bullet(Vector2 _createPos)
     {
-        mercenary2BulletList[mercenary2ActiveBullet].SetBulletSprite(mercenary2BulletSprite);
+        //mercenary2BulletList[mercenary2ActiveBullet].SetBulletSprite(mercenary2BulletSprite);
         mercenary2BulletList[mercenary2ActiveBullet].StartMove(_createPos);
 
         mercenary2ActiveBullet++;

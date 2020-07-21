@@ -25,7 +25,6 @@ public class ShopCatItem : MonoBehaviour
         mercenaryData = _mercenaryData;
 
         catName.text = mercenaryData.name;
-        Debug.Log(GameDataManager.Instance.userResourceData.mercenaryResourceDataList.Count);
         catImage.sprite = GameDataManager.Instance.userResourceData.mercenaryResourceDataList[(int)mercenaryData.type].catImage;
         levelText.text = string.Format("Lv.{0}", mercenaryData.level);
         if (mercenaryData.price == 0)

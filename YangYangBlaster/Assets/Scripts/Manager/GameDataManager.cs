@@ -549,7 +549,7 @@ public class GameDataManager : SingleTon<GameDataManager>
         int catPrice = 0;
         MercenaryData mercenaryData = ReadMercenaryDataList[_num];
 
-        if (userData.getMercenaryDataDic.Count > 0 && isGetMercenaryCat(key) == true)
+        if (isGetMercenaryCat(key) == true)
         {
             MercenaryData myMercenary = GetMyMercenaryData(key);
             myMercenary.level = myMercenary.level + 1;
