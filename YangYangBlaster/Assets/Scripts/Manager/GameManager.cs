@@ -90,13 +90,6 @@ public class GameManager : SingleTon<GameManager>
         Application.targetFrameRate = 60;
 
         GameDataManager.Instance.SetUserData();
-        if(Application.platform == RuntimePlatform.Android 
-            || Application.platform == RuntimePlatform.IPhonePlayer
-            || Application.platform == RuntimePlatform.WindowsEditor
-            || Application.platform == RuntimePlatform.OSXEditor)
-        {            
-            LoginManager.Instance.DoAutoLogin();
-        }
 
         GameDataManager.Instance.LoadGameData();
 
@@ -317,7 +310,6 @@ public class GameManager : SingleTon<GameManager>
         PlayerManager.Instance.SetLobbyInit();
         MonsterManager.Instance.SetLobbyInit();
         BulletManager.Instance.SetLobbyInit();
-        RpcServiceManager.Instance.SetLobbyInit();
         MercenaryManager.Instance.SetLobbyInit();
         EffectManager.Instance.SetLobbyInit();
 
@@ -359,8 +351,6 @@ public class GameManager : SingleTon<GameManager>
         if (isStageClear == true)
         {
             GameDataManager.Instance.userData.stageNum = GameDataManager.Instance.userData.stageNum + 1;
-            GameDataManager.Instance.SaveGameDataStage();
-
 
             MonsterManager.Instance.monsterStageCount = 8;
             MonsterManager.Instance.regenTime = MonsterManager.Instance.regenTime - 0.01f;

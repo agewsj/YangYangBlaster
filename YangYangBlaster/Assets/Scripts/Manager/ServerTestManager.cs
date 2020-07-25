@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using Grpc.Core;
-//using Grpc.Health.V1;
-using Msg;
 
 public class ServerTestManager : SingleTon<ServerTestManager>
 {
