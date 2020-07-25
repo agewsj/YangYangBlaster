@@ -202,6 +202,11 @@ public class GameDataManager : SingleTon<GameDataManager>
                 FileStream file = File.Open(path, FileMode.Open);
                 userData = (UserData)bf.Deserialize(file);
                 file.Close();
+
+                if (userData.getMercenaryDataDic == null)
+                {
+                    userData.getMercenaryDataDic = new Dictionary<string, MercenaryData>();
+                }
             }
         }
         catch (IOException e)
@@ -221,9 +226,21 @@ public class GameDataManager : SingleTon<GameDataManager>
         }
         catch (IOException e)
         {
-            Debug.Log("Load game data error");
+            Debug.Log("Save game data error");
         }
     }
+    public void DeleteGameData()
+    {
+        try
+        {
+            File.Delete(Application.persistentDataPath + "/yyb.dat");
+        }
+        catch (IOException e)
+        {
+            Debug.Log("Delete game data error");
+        }
+    }
+
 
     public void SetUserData()
     {
