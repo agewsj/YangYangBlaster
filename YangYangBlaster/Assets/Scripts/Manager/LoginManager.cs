@@ -94,12 +94,6 @@ public class LoginManager : SingleTon<LoginManager>
 
     void IOSLogin()
     {
-        GameDataManager.Instance.userData.loginType = LoginRequest.Types.LOGIN_TYPE.Google;
-
-        var loginType = GameDataManager.Instance.userData.loginType;
-        var loginKey = GameDataManager.Instance.userData.loginKey;
-        var nickName = GameDataManager.Instance.userData.nickName;
-
         Social.localUser.Authenticate((bool success) =>
         {
             if (success)
